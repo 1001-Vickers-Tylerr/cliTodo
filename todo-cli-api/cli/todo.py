@@ -55,5 +55,15 @@ def update(id, task, priority):
     except httpx.HTTPError as e:
         click.echo(f"Error updating todo: {e}")
 
+@cli.command()
+@click.argument("id", type=int)
+def delete(id):
+    try:
+        response = httpx.delete(f"{API_URL}/todos/{id}")
+        response.raise_for_status()
+        click.echo(f"Deleted task: ID={id}")
+    except httpx.HTTPError as e:
+        click.echo(f"Error deleting todo: {e}")
+
 if __name__ == "__main__":
     cli()
