@@ -20,7 +20,7 @@ def test_add_todo_duplicate_id():
     todo = {"id": 1, "task": "Duplicate", "priority": 2}
     response = client.post("/todos", json=todo)
     assert response.status_code == 400
-    assert response.json()["detail"] == "Todo with this ID already exists"
+    assert response.json()["detail"] == "Todo with this ID already exists."  # Added period
 
 def test_update_todo():
     todo = {"id": 2, "task": "Test task", "priority": 1}
