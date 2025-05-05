@@ -9,6 +9,7 @@ def cli():
 
 @cli.command()
 def list():
+    click.echo("Welcome to To-Do List CLI")
     try:
         response = httpx.get(f"{API_URL}/todos")
         response.raise_for_status()
