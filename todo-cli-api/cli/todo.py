@@ -12,7 +12,11 @@ def list():
     try:
         response = httpx.get(f"{API_URL}/todos")
         response.raise_for_status()
-        for todo in response.json():
+        todos = response.json()
+        if not todos:
+            click.echo("No todos found")
+            return
+        for todo in todos:
             click.echo(f"ID: {todo['id']}, Task: {todo['task']}, Priority: {todo['priority']}")
     except httpx.HTTPError as e:
         click.echo(f"Error fetching todos: {e}")
@@ -35,19 +39,20 @@ def add(task, priority):
 @cli.command()
 @click.argument("id", type=int)
 @click.option("--task", help="New task description")
-@click.option("--priority", type=int, help="New priority")
+@click.option("--priority", type=int, default=None, help="New priority")
 def update(id, task, priority):
     try:
         response = httpx.get(f"{API_URL}/todos")
         response.raise_for_status()
-        current_todo = next((todo for todo in response.json() if todo["id"] == id), None)
+        todos = response.json()
+        current_todo = next((todo for todo in todos if todo["id"] == id), None)
         if not current_todo:
             click.echo(f"Error: Todo with ID {id} not found")
             return
         todo = {
             "id": id,
             "task": task if task else current_todo["task"],
-            "priority": priority if priority else current_todo["priority"]
+            "priority": priority if priority is not None else current_todo["priority"]
         }
         response = httpx.put(f"{API_URL}/todos/{id}", json=todo)
         response.raise_for_status()

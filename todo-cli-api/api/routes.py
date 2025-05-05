@@ -6,7 +6,7 @@ todos = []
 
 @router.get("/todos")
 async def get_todos():
-    return todos
+    return sorted(todos, key=lambda x: x.priority)
 
 @router.post("/todos")
 async def add_todo(item: TodoItem):
