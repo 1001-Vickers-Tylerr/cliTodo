@@ -1,0 +1,23 @@
+{
+    "name": "To-Do List CLI and API",
+    "description": "A simple To-Do List application with a CLI and REST API, deployed on Heroku.",
+    "repository": "https://github.com/1001-Vickers-Tylerr/cliTodo",
+    "keywords": ["python", "fastapi", "cli", "todo"],
+    "buildpacks": [
+      {
+        "url": "heroku/python"
+      }
+    ],
+    "env": {
+      "PYTHON_VERSION": {
+        "description": "Python version to use",
+        "value": "3.12"
+      }
+    },
+    "formation": {
+      "web": {
+        "quantity": 1,
+        "size": "Eco"
+      }
+    }
+  }
