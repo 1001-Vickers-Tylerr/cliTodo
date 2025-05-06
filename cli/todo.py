@@ -9,7 +9,7 @@ def cli():
 
 @cli.command()
 def list():
-    click.echo("Hello World take 4")
+    click.echo("Hello World take 5")
     try:
         response = httpx.get(f"{API_URL}/todos")
         response.raise_for_status()
